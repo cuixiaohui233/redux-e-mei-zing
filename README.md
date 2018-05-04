@@ -8,7 +8,11 @@
 
 他们是你的 app 中唯一的 store.去指定 state 中不同的部分来响应actions，你可以通过"combineReducers"合并多个reducers到一个
 
-reducer 到一个reducer
+reducer 到一个reducer。
+
+参数1：reducer,一个函数，返回下一次的数据树，给出当前的数据，还有 action
+
+参数2：preloadedState, 初始的state，你可以
 
 参数：bu行了。。。,dei gan jin shui jiao le
 
