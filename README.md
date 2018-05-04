@@ -10,9 +10,15 @@
 
 reducer 到一个reducer。
 
-参数1：reducer,一个函数，返回下一次的数据树，给出当前的数据，还有 action
+参数1：reducer,一个函数， 连个参数，分别是当前的 state 树和要处理的 action返回新的state树
 
-参数2：preloadedState, 初始的state，你可以
+参数2：preloadedState, 初始化时的state，你可以把服务器端传来经过处理的state创建它 ,如果你使用 combinReducers创建reducer,它必
+
+须时一个普通的对象，与传入的keys保持相同的结构。否则，你可以自由传入任何reducer可以理解的内容。
+
+参数3：enhancer 一个组合的高阶函数，返回一个强化过的 store creator, 这与  middleware 相似，他也允许你通过复合函数改变 store 接口。
+
+返回值： 返回一个对象，给外部提供dispatch、getState、subscrbe、replaceReducer
 
 参数：bu行了。。。,dei gan jin shui jiao le
 
