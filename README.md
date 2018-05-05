@@ -23,6 +23,6 @@ reducer 到一个reducer。
 参数：bu行了。。。,dei gan jin shui jiao le
 
 
-
+今天贼累，搬东西胳膊酸死...
 
 今天撸不动了，笑哭
