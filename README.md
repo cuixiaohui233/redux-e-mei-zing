@@ -18,9 +18,27 @@ reducer 到一个reducer。
 
 参数3：enhancer 一个组合的高阶函数，返回一个强化过的 store creator, 这与  middleware 相似，他也允许你通过复合函数改变 store 接口。
 
-返回值： 返回一个对象，给外部提供dispatch、getState、subscrbe、replaceReducer
+返回值： 返回一个对象，给外部提供 dispatch、getState、subscrbe、replaceReducer
 
-参数：bu行了。。。,dei gan jin shui jiao le
+首先 判断 loadedState 是不是一个 function， enhancer 是不是 undefined，如果是就将 preloadedState（初始状态）赋给 enhancer
+
+将 loadedState 设为 undefined.
+
+判断enhancer是不是 undefined 如果不是就判断 enhancer 是不是 function 如果不是就抛出异常，enhancer 必须是一个 function
+
+返回 enhancer 前面说了这个一个高阶的函数，是一个组合 store creator 的高阶函数，返回一个新的强化过的 store creator。这与
+
+middleware 相似，它也允许你通过复合函数改变 store 接口。他妈的到底是个啥，不懂...
+
+判断 reducer 是不是function 如果不是就抛出异常 reducer 必须是一个 function
+
+    let currentReducer = reducer 懂
+    let currentState = preloadedState 懂
+    let currentListeners = [] 干嘛的？
+    let nextListeners = currentListeners 干嘛的？
+    let isDispatching = false 不知道
+
+bu行了。。。,dei gan jin shui jiao le
 
 emmmm....
 
