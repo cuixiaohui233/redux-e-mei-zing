@@ -1,5 +1,7 @@
 # redux-LOL
 
+## [分析原文地址](https://github.com/kenberkeley/redux-simple-tutorial/blob/master/redux-advanced-tutorial.md)
+
 1.看看 createStore
 
 创建一个 redux store 来掌控你的数据树
