@@ -63,23 +63,23 @@ redux 的 compose 了解一下：
          */
 
         export default function compose(...funcs) {
-          if (funcs.length === 0) {
-               // 判断这个 传进来的函数是不是 一个，如果是，返回一个 arg => arg 的函数
-            return arg => arg
-          }
+            if (funcs.length === 0) {
+            // 判断这个 传进来的函数是不是 一个，如果是，返回一个 arg => arg 的函数
+            return arg => arg
+        }
 
-          if (funcs.length === 1) {
-               // 如果 length 为1，那么返回第一个函数
-           return funcs[0]
-          }
+        if (funcs.length === 1) {
+            // 如果 length 为1，那么返回第一个函数
+            return funcs[0]
+        }
 
-               // 定义 last 变量，并且将最后一个函数赋值
-          const last = funcs[funcs.length - 1]
-               // 将所有的函数赋址给 rest
-          const rest = funcs.slice(0, -1) 
-               // 使用reduceRight得出 func[-4](func[-3](func[-2](func[-1](...args))))
-          return (...args) => rest.reduceRight((composed, f) => f(composed), last(...args))
-        }
+        // 定义 last 变量，并且将最后一个函数赋值
+        const last = funcs[funcs.length - 1]
+        // 将所有的函数赋址给 rest
+        const rest = funcs.slice(0, -1) 
+        // 使用reduceRight得出 func[-4](func[-3](func[-2](func[-1](...args))))
+        return (...args) => rest.reduceRight((composed, f) => f(composed), last(...args))
+        }
         
         
         
@@ -107,13 +107,13 @@ redux 的 compose 了解一下：
           return num + 3;
         }
 
-            // 有点难看（如果函数名再长一点，那屏幕就不够宽了）
+        // 有点难看（如果函数名再长一点，那屏幕就不够宽了）
         var re1 = func3(func2(func1(0)));
         console.log('re1：' + re1);
 
         console.log('===============');
 
-             // 很优雅
+        // 很优雅
         var re2 = Redux.compose(func3, func2, func1)(0);
         console.log('re2：' + re2);
         </script>
