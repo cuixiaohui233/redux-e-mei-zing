@@ -47,3 +47,92 @@ emmmm....
 今天撸不动了，笑哭
 
 什么都不更了。
+
+redux 的 compose 了解一下：
+
+源码：
+
+        /**
+         * 看起来逼格很高，实际运用其实是这样子的：
+         * compose(f, g, h)(...arg) => f(g(h(...args)))
+         *
+         * 值得注意的是，它用到了 reduceRight，因此执行顺序是从右到左
+         *
+         * @param  {多个函数，用逗号隔开}
+         * @return {函数}
+         */
+
+        export default function compose(...funcs) {
+          if (funcs.length === 0) {
+            // 判断这个 传进来的函数是不是 一个，如果是，返回一个 arg => arg 的函数
+            return arg => arg
+          }
+
+          if (funcs.length === 1) {
+          // 如果 length 为1，那么返回第一个函数
+           return funcs[0]
+          }
+
+          const last = funcs[funcs.length - 1]// 定义 last 变量，并且将最后一个函数赋值
+          const rest = funcs.slice(0, -1)// 将所有的函数赋址给 rest 
+          return (...args) => rest.reduceRight((composed, f) => f(composed), last(...args))// 使用reduceRight得出 func[-4](func[-3](func[-2](func[-1](...args))))
+        }
+        
+        
+        
+实例演示走一波：
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <script src="//cdn.bootcss.com/redux/3.5.2/redux.min.js"></script>
+        </head>
+        <body>
+        <script>
+        function func1(num) {
+          console.log('func1 获得参数 ' + num);
+          return num + 1;
+        }
+
+        function func2(num) {
+          console.log('func2 获得参数 ' + num);
+          return num + 2;
+        }
+
+        function func3(num) {
+          console.log('func3 获得参数 ' + num);
+          return num + 3;
+        }
+
+        // 有点难看（如果函数名再长一点，那屏幕就不够宽了）
+        var re1 = func3(func2(func1(0)));
+        console.log('re1：' + re1);
+
+        console.log('===============');
+
+        // 很优雅
+        var re2 = Redux.compose(func3, func2, func1)(0);
+        console.log('re2：' + re2);
+        </script>
+        </body>
+        </html>
+        
+控制台输出：
+
+func1 获得参数 0
+
+func2 获得参数 1
+
+func3 获得参数 3
+
+re1：6
+
+===============
+
+func1 获得参数 0
+
+func2 获得参数 1
+
+func3 获得参数 3
+
+re2：6
