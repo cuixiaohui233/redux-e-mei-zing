@@ -73,9 +73,12 @@ redux 的 compose 了解一下：
            return funcs[0]
           }
 
-          const last = funcs[funcs.length - 1]// 定义 last 变量，并且将最后一个函数赋值
-          const rest = funcs.slice(0, -1)// 将所有的函数赋址给 rest 
-          return (...args) => rest.reduceRight((composed, f) => f(composed), last(...args))// 使用reduceRight得出 func[-4](func[-3](func[-2](func[-1](...args))))
+          // 定义 last 变量，并且将最后一个函数赋值
+          const last = funcs[funcs.length - 1]
+          // 将所有的函数赋址给 rest
+          const rest = funcs.slice(0, -1) 
+          // 使用reduceRight得出 func[-4](func[-3](func[-2](func[-1](...args))))
+          return (...args) => rest.reduceRight((composed, f) => f(composed), last(...args))
         }
         
         
