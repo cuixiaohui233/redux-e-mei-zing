@@ -347,3 +347,38 @@ func2 获得参数 1
 func3 获得参数 3
 
 re2：6
+
+## 关于 combineReducers
+
+当项目功能越来越强大，代码会越来越复杂，但是每个模块，每个组件的状态是不一样的，不能够写在一起需要独立开来分成不同的reducer,最后合并 ：
+
+源码：
+
+        function combineReducers(reducers) {
+          var reducerKeys = Object.keys(reducers)
+          var finalReducers = {}
+
+          for (var i = 0; i < reducerKeys.length; i++) {
+            var key = reducerKeys[i]
+            if (typeof reducers[key] === 'function') {
+              finalReducers[key] = reducers[key]
+            }
+          }
+
+          var finalReducerKeys = Object.keys(finalReducers)
+
+          // 返回合成后的 reducer
+          return function combination(state = {}, action) {
+            var hasChanged = false
+            var nextState = {}
+            for (var i = 0; i < finalReducerKeys.length; i++) {
+              var key = finalReducerKeys[i]
+              var reducer = finalReducers[key]
+              var previousStateForKey = state[key]                       // 获取当前子 state
+              var nextStateForKey = reducer(previousStateForKey, action) // 执行各子 reducer 中获取子 nextState
+              nextState[key] = nextStateForKey                           // 将子 nextState 挂载到对应的键名
+              hasChanged = hasChanged || nextStateForKey !== previousStateForKey
+            }
+            return hasChanged ? nextState : state
+          }
+        }
