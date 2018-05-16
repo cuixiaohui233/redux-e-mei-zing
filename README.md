@@ -355,15 +355,15 @@ re2：6
 源码：
 
         function combineReducers(reducers) {
-          var reducerKeys = Object.keys(reducers)
-          var finalReducers = {}
+          var reducerKeys = Object.keys(reducers)//返回reducer的名字的数组 ['counter', 'todo', 'hash']
+          var finalReducers = {}
 
           for (var i = 0; i < reducerKeys.length; i++) {
             var key = reducerKeys[i]
             if (typeof reducers[key] === 'function') {
               finalReducers[key] = reducers[key]
             }
-          }
+          }
 
           var finalReducerKeys = Object.keys(finalReducers)
 
