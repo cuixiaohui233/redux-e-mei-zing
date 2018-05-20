@@ -130,3 +130,24 @@
 关于规范化的文档：https://github.com/reduxjs/redux/blob/master/docs/recipes/reducers/NormalizingStateShape.md
 
 用于规范化数据的库：https://github.com/paularmstrong/normalizr
+
+### 关于redux-daga,这个和redux-thunk差不多
+
+作用：
+
+具有可读和可预测的异步流程
+
+连接两个分离的组件
+
+api:
+
+·put(): 在saga中dispatch一个action
+
+·take(): 暂停我们的saga,直到有一个action触发
+
+·select(): 获取State中的一部分数据，
+
+·call(): 使用其余参数调用作为第一个参数传递的函数。
+
+[相关连接-中文](https://redux-saga-in-chinese.js.org/)
+
