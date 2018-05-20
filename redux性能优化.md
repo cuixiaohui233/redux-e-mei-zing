@@ -151,3 +151,99 @@ api:
 
 [相关连接-中文](https://redux-saga-in-chinese.js.org/)
 
+### 关于类型检查 prop-types
+
+作用：
+
+记录或检测传给组件的值得类型，在类型不正确时给出警告。
+
+安装
+
+	npm install --save prop-types
+	
+用法：
+
+	import React from 'react';
+	import PropTypes from 'prop-types';
+
+	class MyComponent extends React.Component {
+	  render() {
+	    // ... do things with the props
+	  }
+	}
+	
+	MyComponent.proptypes = {
+		// ES5/ES6的类型们
+		optionalArray: PropTypes.array,
+		optionalBool: PropTypes.bool,
+		optionalFunc: PropTypes.func,
+		optionalNumber: PropTypes.number,
+		optionalObject: PropTypes.object,
+		optionalString: PropTypes.string,
+		optionalSymbol: PropTypes.symbol,
+		
+		// 这个是...
+		optionalNode: PropTypes.node,
+		
+		// 还可以是一个 react element
+		optionalElement: PropTypes.element,
+		
+		//  亦可以检查某个类的实例，使用js中用 instanceOf 运算符
+		optionalMessage: PropTypes.instanceOf(Message),
+		
+		// // 你可以通过将它作为枚举来确保你的prop被限制到特定的值。
+		optionalEnum: React.PropTypes.oneOf(['News', 'Photos']),
+
+		// 可以是许多类型之一的对象
+		optionalUnion: React.PropTypes.oneOfType([
+			React.PropTypes.string,
+			React.PropTypes.number,
+			React.PropTypes.instanceOf(Message)
+		]),
+
+		// 某种类型的数组
+		optionalArrayOf: React.PropTypes.arrayOf(React.PropTypes.number),
+
+		// 具有某种类型的属性值的对象
+		optionalObjectOf: React.PropTypes.objectOf(React.PropTypes.number),
+
+		// 采取特定样式的对象
+		optionalObjectWithShape: React.PropTypes.shape({
+			color: React.PropTypes.string,
+			fontSize: React.PropTypes.number
+		}),
+
+		// 你可以用`isRequired`来连接到上面的任何一个类型，以确保如果没有提供props的话会显示一个警告。
+		requiredFunc: React.PropTypes.func.isRequired,
+
+		// 任何数据类型
+		requiredAny: React.PropTypes.any.isRequired,
+
+		// 您还可以指定自定义类型检查器。 如果检查失败，它应该返回一个Error对象。 不要`console.warn`或throw，因为这不会在`oneOfType`内工作。
+		customProp: function(props, propName, componentName) {
+		if (!/matchme/.test(props[propName])) {
+				return new Error(
+				'Invalid prop `' + propName + '` supplied to' +
+				' `' + componentName + '`. Validation failed.'
+				);
+			}
+		},
+
+		// 您还可以为`arrayOf`和`objectOf`提供自定义类型检查器。 如果检查失败，它应该返回一个Error对象。 
+		// 检查器将为数组或对象中的每个键调用验证函数。 
+		// 检查器有两个参数，第一个参数是数组或对象本身，第二个是当前项的键。
+		customArrayProp: React.PropTypes.arrayOf(function(propValue, key, componentName, location, propFullName) {
+		if (!/matchme/.test(propValue[key])) {
+				return new Error(
+				'Invalid prop `' + propFullName + '` supplied to' +
+				' `' + componentName + '`. Validation failed.'
+				);
+			}
+		})
+	}
+
+嘻嘻嘻，全是康V抽C康抽V的，用的多的就是检查个类型，符合规范罢。
+
+
+
+
