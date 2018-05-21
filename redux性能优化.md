@@ -266,8 +266,17 @@ immutable 就是一旦创建就不可以更改的数据，这正好符合redux�
 
 上面的链接炒鸡详细了...
 
+先挖几个坑...
 
+### 关于redux中的select
 
+### 如何使用 devTools
+
+### 关于时间旅行的小栗子，Undo/Redo，Copy/Paste
+
+### webpack 解决css全局变量问题到底怎么配置？
+
+### 利用 shouldComponentUpdate 提高性能的方法
 
 
 
