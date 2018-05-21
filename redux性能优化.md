@@ -131,7 +131,7 @@
 
 用于规范化数据的库：https://github.com/paularmstrong/normalizr
 
-### 关于redux-daga,这个和redux-thunk差不多
+### 关于redux-saga,这个和redux-thunk差不多
 
 作用：
 
