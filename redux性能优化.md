@@ -250,7 +250,7 @@ api:
 
 突然困了，撒den力~
 
-这个文档是贼拉多，突然性弃坑。
+这个文档是贼拉多，突然想弃坑。
 
 捡几个重要的搞一下：
 
@@ -359,7 +359,7 @@ webpack 菜鸡表示很懵逼，查文档又没有详细的，这个...
 
 4 继承react的PureComponent组件
 
-对于1，2,3就不搞了，看看4是 怎么新奇玩意：
+对于12,3就不搞了，看看4是 怎么新奇玩意儿：
 
 		import React, { PureComponent } from 'react';
 
@@ -369,6 +369,6 @@ webpack 菜鸡表示很懵逼，查文档又没有详细的，这个...
 			}
 		}
 		
-简单来说，就是这个玩意儿是个纯组件，由于state和props都不会变化，所以render 方法就不会触发，省去 Virtual DOM 的生成和比对过程，达到提升性能的目的。具体教程[戳](http://www.wulv.site/2017-05-31/react-purecomponent.html)
+简单来说，就是这个玩意儿是个纯组件，由于state和props都不会变化，所以render 方法就不会触发，省去 Virtual DOM 的生成和比对过程，达到提升性能的目的。具体教程，[戳](http://www.wulv.site/2017-05-31/react-purecomponent.html)
 
 嗯，以上。
