@@ -55,7 +55,7 @@
 2.每一个数据表应当将这个表的各个项目存储在一个对象中，其中项目的ID作为键，这个项目本身作为值。
 
 3.任何对该项目的引用都应该存储该项目的ID来完成
-
+ 
 4.用项目的ID的数组来表示排序
 
 上面的微博数据写成规范化数据，以下：
@@ -272,11 +272,103 @@ immutable 就是一旦创建就不可以更改的数据，这正好符合redux�
 
 ### 如何使用 devTools
 
+这个直接在谷歌商店下载，[教程](https://blog.csdn.net/applebomb/article/details/54918659)要搞的是 redux-logger：
+
+安装： 
+
+	npm i --save redux-logger
+
+用法：
+
+	import { logger } from 'react-logger';
+	
+	 
+	// Logger with default options
+	import logger from 'redux-logger'
+	const store = createStore(
+		reducer,
+		applyMiddleware(logger)
+	)
+	
+如果只在开发环境显示：
+
+		const middlewares = [];
+
+		if (process.env.NODE_ENV === `development`) {
+			const { logger } = require(`redux-logger`);
+
+			middlewares.push(logger);
+		}
+
+		const store = compose(applyMiddleware(...middlewares))(createStore)(reducer);
+		
+这就够了，[更多配置](https://www.npmjs.com/package/redux-logger)
+
 ### 关于时间旅行的小栗子，Undo/Redo，Copy/Paste
 
 ### webpack 解决css全局变量问题到底怎么配置？
 
+网上有两种方式：
+
+		{
+			test: /\.css$/,
+			loader: 'style-loader!css-loader?modules&importLoaders=1&localIdentName=[name]_[local]__[hash:base64:5]'
+		}
+
+and:
+
+		{  
+			test: /\.css$/,  
+			loader: 'style!css?modules&localIdentName=[name]__[local]___[hash:base64:5]'  
+		} 
+		
+webpack 菜鸡表示很懵逼，查文档又没有详细的，这个...
+
 ### 利用 shouldComponentUpdate 提高性能的方法
 
+众所周知，在react 中只要调用this.setState就会重渲染，不管你的state有没有变化，这样其实很耗性能， shouldComponentUpdate 就派上用场了，这个生命周期钩子是在调用 render 之前调用的，接收两个参数 nextProps 和 nextState,表示下一次的state和props,这个时候如果在State没有变化的时候，可以return false来避免重渲染：
+
+		//在render函数调用前判断：如果前后state中Number不变，通过return false阻止render调用
+		shouldComponentUpdate(nextProps,nextState){
+			if(nextState.Number == this.state.Number){// 不必要的渲染的判断
+				return false;
+			}
+		}
+		
+此时是有效的，但是对于他的子组件还是会渲染，这个时候同理，在子组件里的 shouldComponentUpdate 同样设置：
+
+		shouldComponentUpdate(nextProps,nextState){
+			if(nextProps.number == this.props.number){
+				return false;
+			}
+			return true;
+		}
+		
+引用教程的总结：
+
+"一句话总结以上例子的结论：前后不改变state值的setState（理论上）和无数据交换的父组件的重渲染都会导致组件的重渲染，但你可以在shouldComponentUpdate这道两者必经的关口阻止这种浪费性能的行为"
+
+但是！这仅仅是对于简单类型的，对于复合类型，NO!完全不管用，简单类型的赋值，复合类型的赋址。大神给了集中解决方案：
 
 
+1.ES6的扩展语法Object.assign()//react官方推荐的es6写法
+
+2深拷贝／浅拷贝或利用JSON.parse(JSON.stringify(data))//相当于深拷贝，但使用受一定限制，具体的童鞋们可自行百度，百度了，是有兼容性问题，[戳我](https://www.cnblogs.com/baiyangyuanzi/p/6519612.html)
+
+3 immutable.js//react官方推荐使用的第三方库，目前github上20K star,足见其火热
+
+4 继承react的PureComponent组件
+
+对于1，2,3就不搞了，看看4是 怎么新奇玩意：
+
+		import React, { PureComponent } from 'react';
+
+		class YouComponent extends PureComponent {
+			render() {
+			// ...
+			}
+		}
+		
+简单来说，就是这个玩意儿是个纯组件，由于state和props都不会变化，所以render 方法就不会触发，省去 Virtual DOM 的生成和比对过程，达到提升性能的目的。具体教程[戳](http://www.wulv.site/2017-05-31/react-purecomponent.html)
+
+嗯，以上。
