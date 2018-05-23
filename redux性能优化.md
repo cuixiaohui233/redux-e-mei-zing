@@ -357,7 +357,7 @@ webpack 菜鸡表示很懵逼，查文档又没有详细的，这个...
 
 3 immutable.js//react官方推荐使用的第三方库，目前github上20K star,足见其火热
 
-4 继承react的PureComponent组件
+4 继承 react 的 PureComponent 组件
 
 对于1,2,3就不搞了，看看4是什么新奇玩意儿：
 
@@ -370,5 +370,9 @@ webpack 菜鸡表示很懵逼，查文档又没有详细的，这个...
 		}
 		
 简单来说，就是这个玩意儿是个纯组件，由于state和props都不会变化，所以render 方法就不会触发，省去 Virtual DOM 的生成和比对过程，达到提升性能的目的。具体教程，[戳](http://www.wulv.site/2017-05-31/react-purecomponent.html)
+
+还是不准确，PureComponent 是进行浅比较，那么嵌套深的数据比较结果还是相同？明天再看，老子好困。对了，妈的原生的东西忘光啦！！赶紧看看了，毕竟原生大法好，信原生，得永生。
+
+### 容器组件和 UI 组件，组件的划分。
 
 嗯，以上。
